@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:13:50 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/09 14:17:48 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:15:23 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,21 @@ void	signal_handler(int sig)
 	static char	character;
 
 	if (sig == SIGUSR1)
+	{
 		character = character << 1;
+		//write(1, "0", 1);
+	}
 	else if (sig == SIGUSR2)
+	{
 		character = (character << 1) + 1;
+		//write(1, "1", 1);
+	}
 	else if (!sig)
 	{
+		//write(1, "\t:\t", 1);
 		write(1, &character, 1);
 		character = 0b00000000;
+		//write(1, "\n", 1);
 	}
 }
 
