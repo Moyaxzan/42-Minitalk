@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:39:59 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/08 18:38:31 by taospa           ###   ########.fr       */
+/*   Updated: 2023/08/09 13:52:05 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,20 @@ int	send_sig(char *str, pid_t pid)
 	ref = 0b10000000;
 	while (*str)
 	{
-		write(1, str, 1);
 		while (i < 8)
 		{
-			ref = ref >> 1;
 			if (!(*str & ref))
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
 			i++;
-			usleep(3);
+			ref = ref >> 1;
+			usleep(300);
 		}
 		ref = 0b10000000;
 		i = 0;
 		str++;
 	}
-	write(1, "\n", 1);
 	return (1);
 }
 

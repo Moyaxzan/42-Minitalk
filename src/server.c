@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:13:50 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/08 18:45:46 by taospa           ###   ########.fr       */
+/*   Updated: 2023/08/09 14:17:48 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <unistd.h>
 #include "../libft/libft.h"
 
-void	signalHandler(int sig)
+void	signal_handler(int sig)
 {
-	static int	character;
+	static char	character;
 
 	if (sig == SIGUSR1)
 		character = character << 1;
@@ -32,26 +32,23 @@ void	signalHandler(int sig)
 int	main(void)
 {
 	struct sigaction	sa;
-	int	i;
+	int					i;
 
-	i = 0;
-	sa.sa_handler = signalHandler;
+	i = 1;
+	sa.sa_handler = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-
 	sigaction(SIGUSR1, &sa, 0x0);
 	sigaction(SIGUSR2, &sa, 0x0);
-
 	ft_putnbr_fd(getpid(), 1);
 	write(1, "\n", 1);
 	while (1)
 	{
-
 		pause();
-		if (i == 7)
+		if (i == 8)
 		{
 			i = 0;
-			signalHandler(0);
+			signal_handler(0);
 		}
 		i++;
 	}
