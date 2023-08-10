@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:13:50 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/09 15:15:23 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:45:24 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,43 @@
 #include <unistd.h>
 #include "../libft/libft.h"
 
+int	g_in_len = 1;
+
+void	ft_putstr_ui(unsigned int *str)
+{
+	while (str && *str)
+	{
+		write(1, str, 1);
+		str++;
+	}
+}
+
 void	signal_handler(int sig)
 {
-	static char	character;
+	static unsigned int	character;
+	static unsigned int	*str;
+	static int			i;
 
 	if (sig == SIGUSR1)
-	{
 		character = character << 1;
-		//write(1, "0", 1);
-	}
 	else if (sig == SIGUSR2)
-	{
 		character = (character << 1) + 1;
-		//write(1, "1", 1);
-	}
 	else if (!sig)
 	{
-		//write(1, "\t:\t", 1);
-		write(1, &character, 1);
-		character = 0b00000000;
-		//write(1, "\n", 1);
+		if (g_in_len)
+			str = ft_calloc(character, sizeof(unsigned int));
+		else if (!character)
+		{
+			ft_putstr_ui(str);
+			write(1, "\n", 1);
+			free(str);
+			str = 0x0;
+			g_in_len = 1;
+			i = 0;
+		}
+		else if (str)
+			str[i++] = character;
+		character = 0b00000000000000000000000000000000;
 	}
 }
 
@@ -53,10 +70,12 @@ int	main(void)
 	while (1)
 	{
 		pause();
-		if (i == 8)
+		if ((i == 8 && !g_in_len) || (i == 32 && g_in_len))
 		{
-			i = 0;
 			signal_handler(0);
+			if (i == 32)
+				g_in_len = 0;
+			i = 0;
 		}
 		i++;
 	}

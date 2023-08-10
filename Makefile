@@ -1,18 +1,20 @@
-CC = cc
-
-CFLAGS = -Wall -Wextra -Werror
-
-SERVER_SOURCE = src/server.c
-
-CLIENT_SOURCE = src/client.c
-
-SERVER_OBJECT = $(SERVER_SOURCE:.c=.o)
-
-CLIENT_OBJECT = $(CLIENT_SOURCE:.c=.o)
+NAME = minitalk
 
 SERVER_EXECUTABLE = server
 
 CLIENT_EXECUTABLE = client
+
+CLIENT_OBJECT = $(CLIENT_SOURCE:.c=.o)
+
+SERVER_OBJECT = $(SERVER_SOURCE:.c=.o)
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror -g
+
+SERVER_SOURCE = src/server.c
+
+CLIENT_SOURCE = src/client.c
 
 LIBFTDIR = ./libft
 
@@ -22,7 +24,9 @@ MAKE = make
 
 RMFLAGS = -f
 
-all: $(SERVER_EXECUTABLE) $(CLIENT_EXECUTABLE)
+all: $(NAME)
+
+$(NAME): $(SERVER_EXECUTABLE) $(CLIENT_EXECUTABLE)
 
 $(SERVER_EXECUTABLE): $(SERVER_OBJECT) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@
