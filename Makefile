@@ -10,7 +10,7 @@ SERVER_OBJECT = $(SERVER_SOURCE:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SERVER_SOURCE = src/server.c
 

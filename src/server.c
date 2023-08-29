@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:13:50 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/10 16:45:24 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/08/29 12:06:52 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	signal_handler(int sig)
 	else if (!sig)
 	{
 		if (g_in_len)
-			str = ft_calloc(character, sizeof(unsigned int));
+			str = ft_calloc(character + 1, sizeof(unsigned int));
 		else if (!character)
 		{
 			ft_putstr_ui(str);
