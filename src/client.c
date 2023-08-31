@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:39:59 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/10 15:42:25 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:43:02 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		return (write(2, "Invalid argments\n", 17));
 	pid = ft_atoi(argv[1]);
-	if (pid && send_sig(argv[2], pid) != -1)
+	if (pid > 0 && send_sig(argv[2], pid) != -1)
 		write(1, "Signal sent\n", 12);
 	else
 		write(2, "Error sending signal, make sure you used a valid PID\n", 53);

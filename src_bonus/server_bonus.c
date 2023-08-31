@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:13:50 by taospa            #+#    #+#             */
-/*   Updated: 2023/08/30 15:25:26 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:43:04 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_putstr_ui(unsigned int *str)
 	}
 }
 
-#include <stdio.h>
 int	end_of_transmission(unsigned int *str, pid_t client_pid, int *i)
 {
 	int	success;
